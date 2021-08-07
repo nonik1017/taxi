@@ -203,7 +203,7 @@ class Item3 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/flutter_dev.png',
+            'assets/images/flutter_dev.png',
             height: 90.0,
             fit: BoxFit.cover,
           )
