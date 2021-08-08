@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'sms_code.dart';
 
-class AuthorizationApp extends StatefulWidget {
+class SMSCodeApp extends StatefulWidget {
   @override
-  _AuthorizationState createState() => _AuthorizationState();
+  _SMSCodeState createState() => _SMSCodeState();
 }
 
-class _AuthorizationState extends State<AuthorizationApp> {
+class _SMSCodeState extends State<SMSCodeApp> {
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +32,13 @@ class _AuthorizationState extends State<AuthorizationApp> {
                 color: Colors.black,
                 size: 45,
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.pop(context),
             ),
             iconTheme: const IconThemeData(
               color: Colors.black,
               size: 40
             ),
           ),
-          
           
           body: Column(
             children: <Widget>[
@@ -57,7 +53,7 @@ class _AuthorizationState extends State<AuthorizationApp> {
                     Container(
                       child: const Center(
                         child: Text(
-                          'Войдите с помощью номера телефона',
+                          'Мы отправили SMS-код на +7 (000) 123 1234 введите его для подтверждения входа',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Roboto',
@@ -71,53 +67,73 @@ class _AuthorizationState extends State<AuthorizationApp> {
                       margin: const EdgeInsets.only(bottom: 15),
                       width: 250,
                     ),
+                      
                     Container(
-                      padding: const EdgeInsets.only(left: 17),
-                      child: Row(
-                        children: [
-                          Wrap(
-                            direction: Axis.vertical,
-                            spacing: 5,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.only(left: 11),
-                                child: const Text(
-                                    'Введите ваш номер телефона',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Roboto',
-                                      color: Color.fromRGBO(0, 0, 0, 1),                          
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                              ),
-                              Container(
-                                width: 300,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                                ),
-                                padding: const EdgeInsets.only(top: 8, left: 24),
-                                child: const Text(
-                                  '+7 (000) 123 1234',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color.fromRGBO(0, 0, 0, 1), 
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      child: const Center(
+                        child: Text(
+                            'Введите код из SMS',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                              color: Color.fromRGBO(0, 0, 0, 1),                          
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
                     ),
+                    SizedBox(
+                      width: 300,
+                      height: 40,
+                      
+                      
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 20,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                              color: Colors.red,
+                            ),
+                          ),
+                          Container(
+                            width: 20,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                              color: Colors.red,
+                            ),
+                          ),
+                          Container(
+                            width: 20,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                              color: Colors.red,
+                            ),
+                          ),
+                          Container(
+                            width: 20,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      )
+
+                    ),  
+                        
+                      
+                    
+
                   ],
                 ),
               ),
+
               Container(
                 margin: const EdgeInsets.only(top: 21),
                 child: ElevatedButton (
@@ -137,16 +153,12 @@ class _AuthorizationState extends State<AuthorizationApp> {
                         fontWeight: FontWeight.w400,
                       ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SMSCodeApp()),
-                    );
-                  }
+                  onPressed: () { Navigator.pop(context); }
                 ),
               ),
             ],
           ),
+        
         ),
       ),
     );
