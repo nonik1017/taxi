@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'sms_code.dart';
 
 class AuthorizationApp extends StatefulWidget {
@@ -9,10 +11,21 @@ class AuthorizationApp extends StatefulWidget {
 }
 
 class _AuthorizationState extends State<AuthorizationApp> {
+  final phoneNumberController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    phoneNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        SMSCodeApp.routeName: (context) => const SMSCodeApp(),
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
       home: Builder(
@@ -48,7 +61,8 @@ class _AuthorizationState extends State<AuthorizationApp> {
             children: <Widget>[
               Container(
                 height: 165,
-                margin: EdgeInsets.only(top: 6),
+                margin: const EdgeInsets.only(top: 6),
+                padding: const EdgeInsets.only(top: 6),
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,24 +106,26 @@ class _AuthorizationState extends State<AuthorizationApp> {
                                     textAlign: TextAlign.left,
                                   ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 300,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                                ),
-                                padding: const EdgeInsets.only(top: 8, left: 24),
-                                child: const Text(
-                                  '+7 (000) 123 1234',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color.fromRGBO(0, 0, 0, 1), 
-                                    fontWeight: FontWeight.w400,
+                                child: IntlPhoneField(
+                                  controller: phoneNumberController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                  ],
+                                  initialCountryCode: 'KZ',
+                                  decoration: const InputDecoration(
+                                    isDense: true, // Added this
+                                    counterText: '',
+                                    contentPadding: EdgeInsets.all(8), 
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(),
+                                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           )
                         ],
@@ -138,9 +154,10 @@ class _AuthorizationState extends State<AuthorizationApp> {
                       ),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(builder: (context) => SMSCodeApp()),
+                      SMSCodeApp.routeName,
+                      arguments: phoneNumberController.text.toString(),
                     );
                   }
                 ),

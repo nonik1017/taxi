@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'authorization.dart';
 
 class SMSCodeApp extends StatefulWidget {
+  const SMSCodeApp({Key? key}) : super(key: key);
+
+  static const routeName = '/sms_code';
+
   @override
   _SMSCodeState createState() => _SMSCodeState();
 }
@@ -9,11 +15,12 @@ class _SMSCodeState extends State<SMSCodeApp> {
 
   @override
   Widget build(BuildContext context) {
+    final userPhone = ModalRoute.of(context)!.settings.arguments;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
-      home: Builder(
-        builder: (context) => Scaffold(
+      home: Scaffold(
           appBar: AppBar(
             title: const Text(
               'Войти',
@@ -44,17 +51,17 @@ class _SMSCodeState extends State<SMSCodeApp> {
             children: <Widget>[
               Container(
                 height: 165,
-                margin: EdgeInsets.only(top: 6),
+                margin: const EdgeInsets.only(top: 6),
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: const Center(
+                      child:  Center(
                         child: Text(
-                          'Мы отправили SMS-код на +7 (000) 123 1234 введите его для подтверждения входа',
-                          style: TextStyle(
+                          'Мы отправили SMS-код на +7 $userPhone введите его для подтверждения входа',
+                          style: const TextStyle(
                             fontSize: 16,
                             fontFamily: 'Roboto',
                             color: Color.fromRGBO(196, 196, 196, 1),                          
@@ -68,8 +75,8 @@ class _SMSCodeState extends State<SMSCodeApp> {
                       width: 250,
                     ),
                       
-                    Container(
-                      child: const Center(
+                    const SizedBox(
+                      child: Center(
                         child: Text(
                             'Введите код из SMS',
                             style: TextStyle(
@@ -82,48 +89,84 @@ class _SMSCodeState extends State<SMSCodeApp> {
                           ),
                         ),
                     ),
-                    SizedBox(
-                      width: 300,
-                      height: 40,
-                      
-                      
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
+                    Container(
+                      width: 100,
+                      height: 30,
+                      margin: const EdgeInsets.only(top: 10),
+                      // child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        // children: [
+                    child:  
                           Container(
                             width: 20,
                             height: 30,
                             decoration: BoxDecoration(
                               border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                              color: Colors.red,
+                            ),
+                            child: TextField(
+                              style: const TextStyle(
+                                letterSpacing: 12,
+                              ),
+                              decoration: const InputDecoration(
+                                isDense: true,              // Added this
+                                focusedBorder: InputBorder.none,        
+                                contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
+                              ),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(4),
+                              ]
                             ),
                           ),
-                          Container(
-                            width: 20,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                              color: Colors.red,
-                            ),
-                          ),
-                          Container(
-                            width: 20,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                              color: Colors.red,
-                            ),
-                          ),
-                          Container(
-                            width: 20,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      )
+                          // Container(
+                          //   width: 20,
+                          //   height: 30,
+                          //   decoration: BoxDecoration(
+                          //     border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                          //   ),
+                          //   child: TextField(
+                          //     decoration: const InputDecoration(
+                          //       isDense: true,                      // Added this
+                          //       contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
+                          //     ),
+                          //     inputFormatters: [
+                          //       LengthLimitingTextInputFormatter(1),
+                          //     ]
+                          //   ),
+                          // ),
+                          // Container(
+                          //   width: 20,
+                          //   height: 30,
+                          //   decoration: BoxDecoration(
+                          //     border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                          //   ),
+                          //   child: TextField(
+                          //     decoration: const InputDecoration(
+                          //       isDense: true,                      // Added this
+                          //       contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
+                          //     ),
+                          //     inputFormatters: [
+                          //       LengthLimitingTextInputFormatter(1),
+                          //     ]
+                          //   ),
+                          // ),
+                          // Container(
+                          //   width: 20,
+                          //   height: 30,
+                          //   decoration: BoxDecoration(
+                          //     border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                          //   ),
+                          //   child: TextField(
+                          //     decoration: const InputDecoration(
+                          //       isDense: true,                      // Added this
+                          //       contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
+                          //     ),
+                          //     inputFormatters: [
+                          //       LengthLimitingTextInputFormatter(1),
+                          //     ]
+                          //   ),
+                          // ),
+                        // ],
+                      // )
 
                     ),  
                         
@@ -144,7 +187,7 @@ class _SMSCodeState extends State<SMSCodeApp> {
                     side: const BorderSide(width: 1.0, color: Colors.black,)
                   ),
                   child: const Text(
-                      'Далее',
+                      'Войти',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -158,9 +201,7 @@ class _SMSCodeState extends State<SMSCodeApp> {
               ),
             ],
           ),
-        
         ),
-      ),
     );
   }
 }
