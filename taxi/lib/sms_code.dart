@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'create_order.dart';
 import 'authorization.dart';
 
 class SMSCodeApp extends StatefulWidget {
@@ -12,15 +13,28 @@ class SMSCodeApp extends StatefulWidget {
 }
 
 class _SMSCodeState extends State<SMSCodeApp> {
+  final createOrderController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    createOrderController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final userPhone = ModalRoute.of(context)!.settings.arguments;
 
     return MaterialApp(
+      routes: {
+        AuthorizationApp.routeName: (context) => const AuthorizationApp(),
+        CreateOrderApp.routeName: (context) => const CreateOrderApp(),
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
-      home: Scaffold(
+      home: Builder(
+        builder: (context) => Scaffold(
           appBar: AppBar(
             title: const Text(
               'Войти',
@@ -39,7 +53,13 @@ class _SMSCodeState extends State<SMSCodeApp> {
                 color: Colors.black,
                 size: 45,
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  // CreateOrderApp.routeName,
+                  AuthorizationApp.routeName,
+                );
+              },
             ),
             iconTheme: const IconThemeData(
               color: Colors.black,
@@ -101,7 +121,7 @@ class _SMSCodeState extends State<SMSCodeApp> {
                             width: 20,
                             height: 30,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
+                              border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
                             ),
                             child: TextField(
                               style: const TextStyle(
@@ -117,38 +137,6 @@ class _SMSCodeState extends State<SMSCodeApp> {
                               ]
                             ),
                           ),
-                          // Container(
-                          //   width: 20,
-                          //   height: 30,
-                          //   decoration: BoxDecoration(
-                          //     border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                          //   ),
-                          //   child: TextField(
-                          //     decoration: const InputDecoration(
-                          //       isDense: true,                      // Added this
-                          //       contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
-                          //     ),
-                          //     inputFormatters: [
-                          //       LengthLimitingTextInputFormatter(1),
-                          //     ]
-                          //   ),
-                          // ),
-                          // Container(
-                          //   width: 20,
-                          //   height: 30,
-                          //   decoration: BoxDecoration(
-                          //     border: Border.all(width: 1.0, color: Color.fromRGBO(0, 0, 0, 1)),
-                          //   ),
-                          //   child: TextField(
-                          //     decoration: const InputDecoration(
-                          //       isDense: true,                      // Added this
-                          //       contentPadding: EdgeInsets.only(top: 8, bottom: 12, left: 5),  // Added this
-                          //     ),
-                          //     inputFormatters: [
-                          //       LengthLimitingTextInputFormatter(1),
-                          //     ]
-                          //   ),
-                          // ),
                           // Container(
                           //   width: 20,
                           //   height: 30,
@@ -196,12 +184,19 @@ class _SMSCodeState extends State<SMSCodeApp> {
                         fontWeight: FontWeight.w400,
                       ),
                   ),
-                  onPressed: () { Navigator.pop(context); }
+                  onPressed: () { 
+                    Navigator.pushNamed(
+                      context,
+                      CreateOrderApp.routeName,
+                      arguments: createOrderController.text.toString(),
+                    );
+                   }
                 ),
               ),
             ],
           ),
         ),
+      )
     );
   }
 }

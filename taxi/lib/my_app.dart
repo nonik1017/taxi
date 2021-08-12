@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:taxi/main_slider.dart';
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -68,7 +70,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        body: SliderApp()
+        body: const SliderApp()
       ),
     );
   }

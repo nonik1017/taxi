@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class SliderApp extends StatefulWidget {
+  const SliderApp({Key? key}) : super(key: key);
+
   @override
   _SliderState createState() => _SliderState();
 }
 
 class _SliderState extends State<SliderApp> {
-  int _currentIndex=0;
+  int currentIndex=0;
 
   List cardList=[
     const Item1(),
@@ -49,7 +51,7 @@ class _SliderState extends State<SliderApp> {
                 // aspectRatio: 21/5,
                 onPageChanged: (index, reason) {
                   setState(() {
-                    _currentIndex = index;
+                    currentIndex = index;
                   });
                 },
               ),

@@ -6,8 +6,12 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'sms_code.dart';
 
 class AuthorizationApp extends StatefulWidget {
+  const AuthorizationApp({Key? key}) : super(key: key);
+
   @override
   _AuthorizationState createState() => _AuthorizationState();
+
+  static const routeName = '/authorization';
 }
 
 class _AuthorizationState extends State<AuthorizationApp> {
@@ -25,6 +29,7 @@ class _AuthorizationState extends State<AuthorizationApp> {
     return MaterialApp(
       routes: {
         SMSCodeApp.routeName: (context) => const SMSCodeApp(),
+        // CreateOrderApp.routeName: (context) => const CreateOrderApp(),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
@@ -156,6 +161,7 @@ class _AuthorizationState extends State<AuthorizationApp> {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
+                      // CreateOrderApp.routeName,
                       SMSCodeApp.routeName,
                       arguments: phoneNumberController.text.toString(),
                     );

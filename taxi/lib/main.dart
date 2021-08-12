@@ -4,6 +4,6 @@ import 'authorization.dart';
 
 void main() {
   // runApp(MyApp());
-  runApp(AuthorizationApp());
+  runApp(const AuthorizationApp());
 }
 
