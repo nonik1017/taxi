@@ -13,8 +13,25 @@ class CreateOrderApp extends StatefulWidget {
   _CreateOrderState createState() => _CreateOrderState();
 }
 
+switchPicUpBackgroundColor(pickUpIsSwitched) {
+  if (pickUpIsSwitched) {
+   return const Color.fromRGBO(10, 255, 152, 1); 
+  }
+  return const Color.fromRGBO(196, 196, 196, 1);
+}
+
+switchBonusBackgroundColor(bonusIsSwitched) {
+  if (bonusIsSwitched) {
+   return const Color.fromRGBO(10, 255, 152, 1); 
+  }
+  return const Color.fromRGBO(196, 196, 196, 1);
+}
+
 class _CreateOrderState extends State<CreateOrderApp> {
   String dropDownInitialValue = 'Сейчас';
+  bool pickUpIsSwitched = false;
+  bool bonusIsSwitched = false;
+  var activeTrackColor = [196, 196, 196, 1];
   // SingingCharacter? _character = SingingCharacter.one;
   
   @override
@@ -55,7 +72,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
             children: <Widget>[
               Container(
                 height: 363,
-                margin: const EdgeInsets.only(top: 6),
+                margin: const EdgeInsets.only(top: 5),
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,31 +90,32 @@ class _CreateOrderState extends State<CreateOrderApp> {
                               child: const Text(
                                 'Когда?',
                                 textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                             ),
                             Center(
                               child: Container(
-                                padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
+                                height: 40,
+                                padding: const EdgeInsetsDirectional.only(start: 24, end: 24, top: 5),
                                 decoration: BoxDecoration(
                                   border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: DropdownButton( 
                                   value: dropDownInitialValue,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  icon: const Icon(Icons.arrow_drop_down, size: 32, color: Colors.black,),
                                   isExpanded: true,
+                                  isDense: true,
                                   items:timeList.map((String items) {
                                       return DropdownMenuItem(
                                           value: items,
-                                          child: Text(items)
+                                          child: Text(
+                                            items, 
+                                            style: const TextStyle(fontWeight: FontWeight.w600,),
+                                          )  
                                       );
                                   }).toList(),
 
-                                  // onChanged: (newValue){
-                                  //   setState(() {
-                                  //     dropDownInitialValue = newValue.toString();
-                                  //   });
-                                  // },
                                   underline: Container(
                                     height: 0,
                                   ),
@@ -115,7 +133,175 @@ class _CreateOrderState extends State<CreateOrderApp> {
                     ),  
 
                     // const CustomRadio()                
+                    Container(
+                      margin: const EdgeInsets.only(top: 19),
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: SizedBox(
+                        child: Column (
+                          children: [
+                            Container (
+                              padding: const EdgeInsetsDirectional.only(start: 11, bottom: 5),
+                              alignment: Alignment.topLeft,
+                              child: const Text(
+                                'Сколько человек?',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Center(
+                              child: Container(
+                                height: 39,
+                                padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
+                                decoration: BoxDecoration(
+                                  color: Colors.red[300],
+                                  border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
+                                ),
+                )
+                            )
+                          ]
+                        ),
+                      ),
+                    ),  
 
+                    Container(
+                      margin: const EdgeInsets.only(top: 28),
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: SizedBox(
+                        child: Row (
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container (
+                              padding: const EdgeInsetsDirectional.only(start: 11, bottom: 5),
+                              alignment: Alignment.topLeft,
+                              child: const Text(
+                                'Забрать из дома',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Center(
+                              child: Transform.scale(
+                                scale: 1.3,
+                                child: Switch(
+                                  value: pickUpIsSwitched,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      pickUpIsSwitched = value;
+                                      // print(pickUpIsSwitched);
+                                    });
+                                  },
+                                  activeTrackColor: switchPicUpBackgroundColor(pickUpIsSwitched),
+                                  activeColor: Colors.white,
+                                ),
+                              )
+                            )
+                          ]
+                        ),
+                      ),
+                    ),  
+
+                    Container(
+                      margin: const EdgeInsets.only(top: 19),
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: SizedBox(
+                        child: Column (
+                          children: [
+                            Container (
+                              padding: const EdgeInsetsDirectional.only(start: 11, bottom: 5),
+                              alignment: Alignment.topLeft,
+                              child: const Text(
+                                'Откуда вас забрать?',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Center(
+                              child: Container(
+                                height: 39,
+                                padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: const TextField(
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Укажите адрес',
+                                    isDense: true,              // Added this
+                                    focusedBorder: InputBorder.none,        
+                                    contentPadding: EdgeInsets.only(top: 10, left: 5),  // Added this
+                                  )
+                                ),
+                              )
+                            )
+                          ]
+                        ),
+                      ),
+                    ),  
+
+                  ],
+                ),
+              ),
+
+              Container(
+                height: 75,
+                margin: const EdgeInsets.only(top: 5),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [                                     
+                    Container(
+                      margin: const EdgeInsets.only(top: 18),
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: SizedBox(
+                        child: Row (
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container (
+                                  padding: const EdgeInsetsDirectional.only(start: 11, bottom: 5),
+                                  alignment: Alignment.topLeft,
+                                  child: const Text(
+                                    'Потратить бонусы',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                Container (
+                                  padding: const EdgeInsetsDirectional.only(start: 11, bottom: 5),
+                                  // alignment: Alignment.topLeft,
+                                  child: const Text(
+                                    '500 тг',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(196, 196, 196, 1)
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Center(
+                              child: Transform.scale(
+                                scale: 1.3,
+                                child: Switch(
+                                  value: bonusIsSwitched,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      bonusIsSwitched = value;
+                                      // print(bonusIsSwitched);
+                                    });
+                                  },
+                                  activeTrackColor: switchBonusBackgroundColor(bonusIsSwitched),
+                                  activeColor: Colors.white,
+                                ),
+                              )
+                            )
+                          ]
+                        ),
+                      ),
+                    ),  
                   ],
                 ),
               ),
@@ -124,13 +310,13 @@ class _CreateOrderState extends State<CreateOrderApp> {
                 margin: const EdgeInsets.only(top: 21),
                 child: ElevatedButton (
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                    primary: const Color.fromRGBO(10, 255, 152, 1),
                     minimumSize: const Size(300, 40),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                     side: const BorderSide(width: 1.0, color: Colors.black,)
                   ),
                   child: const Text(
-                      'Войти',
+                      'К оплате 1000 тг',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -142,6 +328,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
                   onPressed: () { Navigator.pop(context); }
                 ),
               ),
+            
             ],
           ),
         ),
