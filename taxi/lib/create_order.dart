@@ -32,7 +32,8 @@ class _CreateOrderState extends State<CreateOrderApp> {
   bool pickUpIsSwitched = false;
   bool bonusIsSwitched = false;
   var activeTrackColor = [196, 196, 196, 1];
-  // SingingCharacter? _character = SingingCharacter.one;
+  bool visibilityPicUpAddress = false;
+  double detainsContainerHeight = 263;
   
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
           body: Column(
             children: <Widget>[
               Container(
-                height: 363,
+                height: detainsContainerHeight,
                 margin: const EdgeInsets.only(top: 5),
                 color: Colors.white,
                 child: Column(
@@ -186,6 +187,13 @@ class _CreateOrderState extends State<CreateOrderApp> {
                                   value: pickUpIsSwitched,
                                   onChanged: (value) {
                                     setState(() {
+                                      if (pickUpIsSwitched){
+                                        detainsContainerHeight = 263;
+                                        visibilityPicUpAddress = false;
+                                      } else {
+                                        detainsContainerHeight = 363;
+                                        visibilityPicUpAddress = true; 
+                                      }
                                       pickUpIsSwitched = value;
                                       // print(pickUpIsSwitched);
                                     });
@@ -200,6 +208,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
                       ),
                     ),  
 
+                    (visibilityPicUpAddress) ? 
                     Container(
                       margin: const EdgeInsets.only(top: 19),
                       padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -237,7 +246,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
                           ]
                         ),
                       ),
-                    ),  
+                    ) : Container(),
 
                   ],
                 ),
@@ -276,7 +285,7 @@ class _CreateOrderState extends State<CreateOrderApp> {
                                     '500 тг',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: Color.fromRGBO(196, 196, 196, 1)
+                                      color: Color.fromRGBO(196, 196, 196, 1),
                                     ),
                                   ),
                                 ),
@@ -290,7 +299,6 @@ class _CreateOrderState extends State<CreateOrderApp> {
                                   onChanged: (value) {
                                     setState(() {
                                       bonusIsSwitched = value;
-                                      // print(bonusIsSwitched);
                                     });
                                   },
                                   activeTrackColor: switchBonusBackgroundColor(bonusIsSwitched),
