@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class SliderApp extends StatefulWidget {
-  const SliderApp({Key? key}) : super(key: key);
+  // const SliderApp({Key? key}) : super(key: key);
 
   @override
   _SliderState createState() => _SliderState();
@@ -28,79 +28,42 @@ class _SliderState extends State<SliderApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              child: Container(
-                height: 6,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(229, 229, 229, 1),
+    return Container(
+      margin: const EdgeInsets.only(top: 6),
+      color: Colors.white,
+      child: CarouselSlider(
+        options: CarouselOptions(
+          viewportFraction: 0.6,
+          height: 135.0,
+          autoPlay: false,
+          autoPlayCurve: Curves.fastOutSlowIn,
+          pauseAutoPlayOnTouch: true,
+          // aspectRatio: 21/5,
+          onPageChanged: (index, reason) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+        ),
+        items: cardList.map((card){
+          return Builder(
+            builder:(BuildContext context){
+              return  Container(
+                margin: const EdgeInsets.only(
+                  right: 10,
+                  top: 10,
+                  bottom: 10
                 ),
-              ),
-            ),
-            CarouselSlider(
-              options: CarouselOptions(
-                viewportFraction: 0.6,
-                height: 135.0,
-                autoPlay: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                pauseAutoPlayOnTouch: true,
-                // aspectRatio: 21/5,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-              ),
-              items: cardList.map((card){
-                return Builder(
-                  builder:(BuildContext context){
-                    return  Container(
-                      margin: const EdgeInsets.only(
-                        right: 10,
-                        top: 10,
-                        bottom: 10
-                      ),
-                      height: MediaQuery.of(context).size.height*0.30,
-                      width: MediaQuery.of(context).size.width,
-                      child: Card(
-                        // color: Colors.blueAccent,
-                        child: card,
-                      ),
-                    );
-                  }
-                );
-              }).toList(),
-            ),
-            SizedBox(
-              child: Container(
-                height: 6,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(229, 229, 229, 1),
+                height: MediaQuery.of(context).size.height*0.30,
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  // color: Colors.blueAccent,
+                  child: card,
                 ),
-              ),
-            ),
-            SizedBox(
-              child: Container(
-                height: 145,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(
-              child: Container(
-                height: 6,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(229, 229, 229, 1),
-                ),
-              ),
-            ),
-          ],
-        )
+              );
+            }
+          );
+        }).toList(),
       ),
     );
   }

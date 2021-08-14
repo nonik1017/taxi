@@ -42,9 +42,10 @@ class _CreateOrderState extends State<CreateOrderApp> {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
       home: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: const Text(
               'Детали',
               style: TextStyle(

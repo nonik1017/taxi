@@ -28,14 +28,15 @@ class _SMSCodeState extends State<SMSCodeApp> {
 
     return MaterialApp(
       routes: {
-        AuthorizationApp.routeName: (context) => const AuthorizationApp(),
+        AuthorizationApp.routeName: (context) => AuthorizationApp(),
         CreateOrderApp.routeName: (context) => const CreateOrderApp(),
       },
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
       home: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: const Text(
               'Войти',
               style: TextStyle(

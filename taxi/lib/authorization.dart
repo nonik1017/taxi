@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:taxi/my_app.dart';
 import 'sms_code.dart';
 
 class AuthorizationApp extends StatefulWidget {
-  const AuthorizationApp({Key? key}) : super(key: key);
+  // const AuthorizationApp({Key? key}) : super(key: key);
 
   @override
   _AuthorizationState createState() => _AuthorizationState();
@@ -29,13 +30,13 @@ class _AuthorizationState extends State<AuthorizationApp> {
     return MaterialApp(
       routes: {
         SMSCodeApp.routeName: (context) => const SMSCodeApp(),
-        // CreateOrderApp.routeName: (context) => const CreateOrderApp(),
       },
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1)),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
       home: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: const Text(
               'Войти',
               style: TextStyle(
@@ -53,7 +54,10 @@ class _AuthorizationState extends State<AuthorizationApp> {
                 color: Colors.black,
                 size: 45,
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyApp()),
+            ),
             ),
             iconTheme: const IconThemeData(
               color: Colors.black,
@@ -113,23 +117,43 @@ class _AuthorizationState extends State<AuthorizationApp> {
                               ),
                               SizedBox(
                                 width: 300,
-                                child: IntlPhoneField(
-                                  controller: phoneNumberController,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                  ],
-                                  initialCountryCode: 'KZ',
+                                child: TextField(
                                   decoration: const InputDecoration(
-                                    isDense: true, // Added this
+                                    hintText: '+7 (xxx) xxx xx xx',
                                     counterText: '',
-                                    contentPadding: EdgeInsets.all(8), 
+                                    focusColor: Colors.grey,
+                                    fillColor: Colors.grey,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                    ),
+                                    contentPadding: EdgeInsets.only(left: 24), 
                                     border: OutlineInputBorder(
-                                      borderSide: BorderSide(),
+                                      borderSide:  BorderSide(),
                                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                                     ),
                                   ),
-                                ),
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(11),
+                                  ]
+                                )
+                                // IntlPhoneField(
+                                //   controller: phoneNumberController,
+                                //   keyboardType: TextInputType.number,
+                                //   inputFormatters: [
+                                //     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                //   ],
+                                //   initialCountryCode: 'KZ',
+                                //   decoration: const InputDecoration(
+                                //     isDense: true, // Added this
+                                //     counterText: '',
+                                //     contentPadding: EdgeInsets.all(8), 
+                                //     border: OutlineInputBorder(
+                                //       borderSide: BorderSide(),
+                                //       borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                //     ),
+                                //   ),
+                                // ),
                               )
                             ],
                           )
