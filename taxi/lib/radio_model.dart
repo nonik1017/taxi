@@ -10,89 +10,95 @@ class CustomRadio extends StatefulWidget {
 }
 
 class CustomRadioState extends State<CustomRadio> {
-  List<RadioModel> sampleData = [];
+  int _value = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    sampleData.add(RadioModel(false, 'A', 'April 18'));
-    sampleData.add(RadioModel(false, 'B', 'April 17'));
-    sampleData.add(RadioModel(false, 'C', 'April 16'));
-    sampleData.add(RadioModel(false, 'D', 'April 15'));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: sampleData.length,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            splashColor: Colors.blueAccent,
-            onTap: () {
-              setState(() {
-                for (var element in sampleData) {
-                  element.isSelected = false;
-                }
-                sampleData[index].isSelected = true;
-              });
-            },
-            child: RadioItem(sampleData[index]),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class RadioItem extends StatelessWidget {
-  final RadioModel _item;
-  // ignore: use_key_in_widget_constructors
-  const RadioItem(this._item);
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15.0),
+      width: 56 * 6 + 1,
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(width: 1, color: Colors.black),
+          left: BorderSide(width: 1, color: Colors.black),
+          bottom: BorderSide(width: 1, color: Colors.black)
+        ),
+      ),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Container(
-            height: 50.0,
-            width: 50.0,
-            child: Center(
-              child: Text(_item.buttonText,
-                  style: TextStyle(
-                      color:
-                          _item.isSelected ? Colors.white : Colors.black,
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 18.0)),
-            ),
-            decoration: BoxDecoration(
-              color: _item.isSelected
-                  ? Colors.blueAccent
-                  : Colors.transparent,
-              border: Border.all(
-                  width: 1.0,
-                  color: _item.isSelected
-                      ? Colors.blueAccent
-                      : Colors.grey),
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+          GestureDetector(
+            onTap: () => setState(() => _value = 1),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 1 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('1')),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 10.0),
-            child: Text(_item.text),
-          )
+          GestureDetector(
+            onTap: () => setState(() => _value = 2),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 2 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('2')),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() => _value = 3),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 3 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('3')),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() => _value = 4),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 4 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('4')),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() => _value = 5),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 5 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('5')),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() => _value = 6),
+            child: Container(
+              height: 39,
+              width: 56,
+              decoration: BoxDecoration(
+                border: const Border(right: BorderSide(width: 1, color: Colors.black),),
+                color: _value == 6 ? Colors.grey : Colors.transparent,
+              ),
+              child: const Center(child: Text('6')),
+            ),
+          ),
         ],
       ),
     );
   }
-}
-
-class RadioModel {
-  bool isSelected;
-  final String buttonText;
-  final String text;
-
-  RadioModel(this.isSelected, this.buttonText, this.text);
 }

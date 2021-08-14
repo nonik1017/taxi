@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:taxi/radio_model.dart';
 // import 'radio_model.dart';
 
 enum SingingCharacter { one, two, three, four, five, six }
@@ -133,7 +134,6 @@ class _CreateOrderState extends State<CreateOrderApp> {
                       ),
                     ),  
 
-                    // const CustomRadio()                
                     Container(
                       margin: const EdgeInsets.only(top: 19),
                       padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -149,15 +149,16 @@ class _CreateOrderState extends State<CreateOrderApp> {
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                             ),
-                            Center(
-                              child: Container(
-                                height: 39,
-                                padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
-                                decoration: BoxDecoration(
-                                  color: Colors.red[300],
-                                  border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
-                                ),
-                )
+                            const Center(
+                              child: CustomRadio(),
+                              // Container(
+                              //   height: 39,
+                              //   padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
+                              //   decoration: BoxDecoration(
+                              //     color: Colors.red[300],
+                              //     border: Border.all(width: 1.0, color: const Color.fromRGBO(0, 0, 0, 1)),
+                              //   ),
+                              // )
                             )
                           ]
                         ),
